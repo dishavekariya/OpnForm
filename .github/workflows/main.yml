@@ -101,3 +101,5 @@ jobs:
             npm test
           else
             echo "No client tests defined."
+          fi
+
