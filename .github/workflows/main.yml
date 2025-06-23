@@ -50,24 +50,25 @@ jobs:
       - name: Run migrations
         working-directory: ./api
         env:
-          DB_CONNECTION=pgsql
-          DB_HOST=127.0.0.1
-          DB_PORT=5432
-          DB_DATABASE=opnform_test
-          DB_USERNAME=opnform
-          DB_PASSWORD=password
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: opnform_test
+          DB_USERNAME: opnform
+          DB_PASSWORD: password
         run: php artisan migrate --force
 
       - name: Run PHPUnit tests
         working-directory: ./api
         env:
-          DB_CONNECTION=pgsql
-          DB_HOST=127.0.0.1
-          DB_PORT=5432
-          DB_DATABASE=opnform_test
-          DB_USERNAME=opnform
-          DB_PASSWORD=password
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: opnform_test
+          DB_USERNAME: opnform
+          DB_PASSWORD: password
         run: ./vendor/bin/phpunit
+
 
   nuxt-client-tests:
     name: Nuxt Frontend (Node.js)
