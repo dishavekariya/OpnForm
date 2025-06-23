@@ -58,7 +58,7 @@ jobs:
           DB_PASSWORD: password
         run: php artisan migrate --force
 
-      - name: Run PHPUnit tests
+      - name: Run Pest tests
         working-directory: ./api
         env:
           DB_CONNECTION: pgsql
@@ -67,7 +67,7 @@ jobs:
           DB_DATABASE: opnform_test
           DB_USERNAME: opnform
           DB_PASSWORD: password
-        run: ./vendor/bin/phpunit
+        run: ./vendor/bin/pest --colors
 
 
   nuxt-client-tests:
