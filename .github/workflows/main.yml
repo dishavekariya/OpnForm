@@ -70,7 +70,7 @@ jobs:
           DB_DATABASE: opnform_test
           DB_USERNAME: opnform
           DB_PASSWORD: password
-        run: ./vendor/bin/pest --colors
+        run: ./vendor/bin/pest -p --colors
 
 
   nuxt-client-tests:
