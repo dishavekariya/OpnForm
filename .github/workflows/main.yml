@@ -17,7 +17,7 @@ jobs:
         env:
           POSTGRES_DB: opnform_test
           POSTGRES_USER: opnform
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRESS_PASSWORD }}
         ports:
           - 5432:5432
         options: >-
@@ -53,7 +53,7 @@ jobs:
           DB_PORT: 5432
           DB_DATABASE: opnform_test
           DB_USERNAME: opnform
-          DB_PASSWORD: password
+          DB_PASSWORD: ${{ secrets.POSTGRESS_PASSWORD }}
         run: php artisan migrate --force
       - name: Directory permissions
         working-directory: ./api
@@ -67,7 +67,7 @@ jobs:
           DB_PORT: 5432
           DB_DATABASE: opnform_test
           DB_USERNAME: opnform
-          DB_PASSWORD: password
+          DB_PASSWORD: ${{ secrets.POSTGRESS_PASSWORD }}
         run: ./vendor/bin/pest -p --colors
 
       - name: Run PHP lint check
