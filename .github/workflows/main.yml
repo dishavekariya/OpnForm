@@ -70,6 +70,10 @@ jobs:
           DB_PASSWORD: password
         run: ./vendor/bin/pest -p --colors
 
+      - name: Run PHP lint check
+        working-directory: ./api
+        run: ./vendor/bin/pint --test
+
 
   nuxt-client-tests:
     name: Nuxt Frontend (Node.js)
@@ -100,4 +104,6 @@ jobs:
           else
             echo "No client tests defined."
           fi
-
+          
+      - name: Run ESLint
+        run: npm run lint
