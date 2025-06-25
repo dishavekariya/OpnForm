@@ -140,7 +140,7 @@ jobs:
       - name: Build and Push API Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./api
+          context: .
           file: ./docker/Dockerfile.api
           push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.api_meta.outputs.tags }}
@@ -161,7 +161,7 @@ jobs:
       - name: Build and Push UI Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./client
+          context: .
           file: ./docker/Dockerfile.client
           push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.ui_meta.outputs.tags }}
