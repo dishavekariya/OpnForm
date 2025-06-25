@@ -1,9 +1,9 @@
 name: laravel
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  # push:
+  #   branches: [main]
+  # pull_request:
 
 jobs:
   code_lint:
