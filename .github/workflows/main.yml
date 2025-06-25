@@ -141,7 +141,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./docker/Dockerfile.api
+          file: docker/Dockerfile.api
           push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.api_meta.outputs.tags }}
           cache-from: type=gha
@@ -162,7 +162,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./docker/Dockerfile.client
+          file: docker/Dockerfile.client
           push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.ui_meta.outputs.tags }}
           cache-from: type=gha
