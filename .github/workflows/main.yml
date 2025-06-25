@@ -106,4 +106,5 @@ jobs:
           fi
           
       - name: Run ESLint
+        working-directory: ./client
         run: npm run lint
