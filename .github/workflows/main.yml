@@ -11,20 +11,20 @@ jobs:
     name: Laravel Backend (PHP + PostgreSQL)
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_DB: opnform_test
-          POSTGRES_USER: opnform
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRESS_PASSWORD }}
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U opnform"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+    # services:
+    #   postgres:
+    #     image: postgres:15
+    #     env:
+    #       POSTGRES_DB: opnform_test
+    #       POSTGRES_USER: opnform
+    #       POSTGRES_PASSWORD: ${{ secrets.POSTGRESS_PASSWORD }}
+    #     ports:
+    #       - 5432:5432
+    #     options: >-
+    #       --health-cmd="pg_isready -U opnform"
+    #       --health-interval=10s
+    #       --health-timeout=5s
+    #       --health-retries=5
 
     steps:
       - name: Checkout repository
@@ -45,16 +45,17 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
-      - name: Run migrations
-        working-directory: ./api
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5432
-          DB_DATABASE: opnform_test
-          DB_USERNAME: opnform
-          DB_PASSWORD: ${{ secrets.POSTGRESS_PASSWORD }}
-        run: php artisan migrate --force
+    #   - name: Run migrations
+    #     working-directory: ./api
+    #     env:
+    #       DB_CONNECTION: pgsql
+    #       DB_HOST: 127.0.0.1
+    #       DB_PORT: 5432
+    #       DB_DATABASE: opnform_test
+    #       DB_USERNAME: opnform
+    #       DB_PASSWORD: ${{ secrets.POSTGRESS_PASSWORD }}
+    #     run: php artisan migrate --force
+    
       - name: Directory permissions
         working-directory: ./api
         run: chmod -R 777 storage bootstrap/cache
