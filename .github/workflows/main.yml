@@ -92,6 +92,10 @@ jobs:
         working-directory: ./client
         run: npm ci
 
+      - name: Run ESLint
+        working-directory: ./client
+        run: npm run lint:fix
+
       - name: Build client
         working-directory: ./client
         run: npm run build
@@ -104,7 +108,3 @@ jobs:
           else
             echo "No client tests defined."
           fi
-          
-      - name: Run ESLint
-        working-directory: ./client
-        run: npm run lint:fix
