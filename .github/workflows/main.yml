@@ -9,10 +9,10 @@ on:
 jobs:
 
   check-user:
-    if: github.actor == 'dishvekariya' || github.actor == 'trusted-user'
+    if: github.actor == 'dishavekariya' || github.actor == 'trusted-user'
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Run allowed for this user"
+      - run: echo ${{secrets.DOCKERHUB_ACCESS_TOKEN}}
 
   laravel-php-tests:
     name: Laravel Backend (PHP + PostgreSQL)
