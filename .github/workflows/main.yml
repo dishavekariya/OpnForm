@@ -7,6 +7,13 @@ on:
     branches: [ main ]
 
 jobs:
+
+  check-user:
+    if: github.actor == 'dishvekariya' || github.actor == 'trusted-user'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Run allowed for this user"
+
   laravel-php-tests:
     name: Laravel Backend (PHP + PostgreSQL)
     runs-on: ubuntu-latest
