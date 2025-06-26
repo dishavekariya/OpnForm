@@ -95,7 +95,7 @@ jobs:
 
       - name: Run ESLint
         working-directory: ./client
-        run: npm run lint:fix
+        run: npm run lint
 
       - name: Build client
         working-directory: ./client
