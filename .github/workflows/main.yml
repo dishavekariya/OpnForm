@@ -130,6 +130,7 @@ jobs:
 
       # --- Generate tag for API image ---
       - name: Generate API Docker tag
+        if: github.event_name == 'push'
         id: api_meta
         uses: docker/metadata-action@v5
         with:
@@ -150,6 +151,7 @@ jobs:
 
       # --- Generate tag for Client UI image ---
       - name: Generate UI Docker tag
+        if: github.event_name == 'push'
         id: ui_meta
         uses: docker/metadata-action@v5
         with:
