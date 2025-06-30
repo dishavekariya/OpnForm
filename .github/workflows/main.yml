@@ -112,59 +112,58 @@ jobs:
             echo "No client tests defined."
           fi
 
-  # image-build:
-  #   if: github.event_name == 'push'
-  #   runs-on: ubuntu-latest
-  #   needs: [nuxt-client-tests, laravel-php-tests]
+  image-build:
+    runs-on: ubuntu-latest
+    needs: [nuxt-client-tests, laravel-php-tests]
 
-  #   steps:
-  #     - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-  #     - name: Setup Docker Buildx
-  #       uses: docker/setup-buildx-action@v3
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-  #     - name: Login to Docker registry
-  #       uses: docker/login-action@v3
-  #       with:
-  #         username: ${{ vars.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+      - name: Login to Docker registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-  #     # --- Generate tag for API image ---
-  #     - name: Generate API Docker tag
-  #       id: api_meta
-  #       uses: docker/metadata-action@v5
-  #       with:
-  #         images: ${{ vars.DOCKERHUB_USERNAME }}/opnform-api
-  #         tags: |
-  #           type=raw,{{branch}}-{{sha}}-{{date 'X'}}
+      # --- Generate tag for API image ---
+      - name: Generate API Docker tag
+        id: api_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ vars.DOCKERHUB_USERNAME }}/opnform-api
+          tags: |
+            type=raw,{{branch}}-{{sha}}-{{date 'X'}}
 
-  #     # --- Build and push API Docker image ---
-  #     - name: Build and Push API Docker image
-  #       uses: docker/build-push-action@v6
-  #       with:
-  #         context: .
-  #         file: docker/Dockerfile.api
-  #         push: ${{ github.event_name == 'push' }}
-  #         tags: ${{ steps.api_meta.outputs.tags }}
-  #         cache-from: type=gha
-  #         cache-to: type=gha,mode=max
+      # --- Build and push API Docker image ---
+      - name: Build and Push API Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.api
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.api_meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-  #     # --- Generate tag for Client UI image ---
-  #     - name: Generate UI Docker tag
-  #       id: ui_meta
-  #       uses: docker/metadata-action@v5
-  #       with:
-  #         images: ${{ vars.DOCKERHUB_USERNAME }}/opnform-ui
-  #         tags: |
-  #           type=raw,{{branch}}-{{sha}}-{{date 'X'}}
+      # --- Generate tag for Client UI image ---
+      - name: Generate UI Docker tag
+        id: ui_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ vars.DOCKERHUB_USERNAME }}/opnform-ui
+          tags: |
+            type=raw,{{branch}}-{{sha}}-{{date 'X'}}
 
-  #     # --- Build and push Client UI Docker image ---
-  #     - name: Build and Push UI Docker image
-  #       uses: docker/build-push-action@v6
-  #       with:
-  #         context: .
-  #         file: docker/Dockerfile.client
-  #         push: ${{ github.event_name == 'push' }}
-  #         tags: ${{ steps.ui_meta.outputs.tags }}
-  #         cache-from: type=gha
-  #         cache-to: type=gha,mode=max
+      # --- Build and push Client UI Docker image ---
+      - name: Build and Push UI Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.client
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.ui_meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
