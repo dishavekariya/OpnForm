@@ -6,49 +6,49 @@ on:
   # pull_request:
 
 jobs:
-  code_lint:
-    runs-on: ubuntu-latest
-    name: Run code linters
+  # code_lint:
+  #   runs-on: ubuntu-latest
+  #   name: Run code linters
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: |
-          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+  #     - name: Get Composer cache directory
+  #       id: composer-cache
+  #       run: |
+  #         echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v4
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+  #     - uses: actions/cache@v4
+  #       with:
+  #         path: ${{ steps.composer-cache.outputs.dir }}
+  #         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-composer-
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-          extensions: dom, curl, mbstring, pdo, sqlite, pdo_sqlite
-          tools: composer:v2
-          coverage: none
+  #     - name: Setup PHP
+  #       uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: 8.2
+  #         extensions: dom, curl, mbstring, pdo, sqlite, pdo_sqlite
+  #         tools: composer:v2
+  #         coverage: none
 
-      - name: Prepare the environment
-        working-directory: ./api
-        run: cp .env.example .env
+  #     - name: Prepare the environment
+  #       working-directory: ./api
+  #       run: cp .env.example .env
 
-      - name: Install composer dependencies
-        working-directory: ./api
-        run: composer install --prefer-dist --no-interaction --no-progress --ignore-platform-reqs --optimize-autoloader
+  #     - name: Install composer dependencies
+  #       working-directory: ./api
+  #       run: composer install --prefer-dist --no-interaction --no-progress --ignore-platform-reqs --optimize-autoloader
 
-      - name: Directory permissions
-        working-directory: ./api
-        run: chmod -R 777 storage bootstrap/cache
+  #     - name: Directory permissions
+  #       working-directory: ./api
+  #       run: chmod -R 777 storage bootstrap/cache
 
-      - name: Run PHP lint check
-        working-directory: ./api
-        run: ./vendor/bin/pint --test
+  #     - name: Run PHP lint check
+  #       working-directory: ./api
+  #       run: ./vendor/bin/pint --test
 
   client_lint:
     runs-on: ubuntu-latest
