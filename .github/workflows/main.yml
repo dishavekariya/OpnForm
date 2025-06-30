@@ -37,6 +37,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./api/vendor
+          key: composer-${{ hashFiles('**/composer.lock') }}
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -90,6 +96,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Cache npm cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ hashFiles('**/package-lock.json') }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -173,4 +185,3 @@ jobs:
           tags: ${{ steps.ui_meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-  
