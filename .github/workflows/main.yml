@@ -134,9 +134,9 @@ jobs:
         id: api_meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/opnform-api
+          images: ${{ vars.DOCKERHUB_USERNAME }}/opnform
           tags: |
-            type=raw,{{branch}}-{{sha}}-{{date 'X'}}
+            type=raw,api-{{branch}}-{{sha}}-{{date 'X'}}
 
       # --- Build and push API Docker image ---
       - name: Build and Push API Docker image
@@ -155,9 +155,9 @@ jobs:
         id: ui_meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/opnform-ui
+          images: ${{ vars.DOCKERHUB_USERNAME }}/opnform
           tags: |
-            type=raw,{{branch}}-{{sha}}-{{date 'X'}}
+            type=raw,ui-{{branch}}-{{sha}}-{{date 'X'}}
 
       # --- Build and push Client UI Docker image ---
       - name: Build and Push UI Docker image
